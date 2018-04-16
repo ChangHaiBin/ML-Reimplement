@@ -64,8 +64,8 @@
     <Compile Include="NumericalSolver.fs" />
     <Compile Include="ChartingFSharp.fs" />
     <Compile Include="DrawDigits.fs" />
-    <Compile Include="UserDrawing.fs" />
     <Compile Include="Problem03.fs" />
+    <Compile Include="UserDrawing.fs" />
     <Compile Include="Program.fs" />
     <None Include="App.config" />
     <Content Include="packages.config" />

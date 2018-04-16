@@ -51,6 +51,10 @@ let yArray1 =
 let Sigmoid x =
     1.0 / (1.0 + exp (- x))
 
+
+
+
+
 let UnregularizedCost yArray (xAugMatrix:Matrix<float>) thetaColumnMatrix =
     xAugMatrix * thetaColumnMatrix
     |> Matrix.toColArrays
@@ -223,4 +227,22 @@ let result =
     predictionByNeuralNet
     |> Array.map2 (fun x y -> x = y) (Seq.toArray yResult)
     |> Array.length
+
+let PredictByNeuralNet (xList: seq<float>) =
+    [| Seq.append [|1.0|] xList|]
+    |> RowSeqSeq.toMatrix
+    |> (*) <| theta1.Transpose() 
+    |> Matrix.map (Sigmoid)
+    |> Matrix.augmentMatrix
+    |> (*) <| theta2.Transpose()
+    |> Matrix.map (Sigmoid)
+    |> Matrix.toRowSeqSeq
+    |> Seq.map (fun xSeq ->
+        xSeq 
+        |> Seq.mapi (fun i x -> (i+1,x))
+        |> Seq.maxBy snd
+        |> fst
+    )
+    |> Seq.exactlyOne
+    
     
