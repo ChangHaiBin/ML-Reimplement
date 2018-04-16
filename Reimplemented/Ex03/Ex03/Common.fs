@@ -113,3 +113,20 @@ module Matrix =
         xMatrix
         |> Matrix.toColSeq
         |> Seq.map (Vector.toSeq)
+
+    let augmentMatrix xMatrix =
+        let nRow = xMatrix |> Matrix.rowCount
+        xMatrix
+        |> toColSeqSeq 
+        |> Seq.append [|Seq.replicate nRow 1.0|]
+        |> ColSeqSeq.toMatrix
+        
+module Norm =
+    let normalize01 (xList: List<float>) =
+        let max = xList |> List.max
+        let min = xList |> List.min
+        xList
+        |> List.map (fun x ->
+            (x - min) / (max - min)
+        )
+        
